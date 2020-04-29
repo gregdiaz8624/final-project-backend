@@ -1,14 +1,14 @@
 class OrdersController < ApplicationController
-    before_action :authorized, only: [:create]
+  before_action :authorized, only: [:create]
 
-    def create
-      # @new_order = @user.orders.create
-      @new_order = Order.create(user: @user)
+
+  def create
+    the_newly_created_order = @user.orders.create
   
       params[:product_ids].each do |prod_id|
-        ProductOrder.create(product_id: prod_id, order: @new_order)
+        ProductOrder.create(product_id: prod_id, order: the_newly_created_order)
       end
   
-      render json: @new_order
+      render json: the_newly_created_order
     end
 end

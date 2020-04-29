@@ -36,6 +36,16 @@ class UsersController < ApplicationController
         render json: {message: "Invalid username or password"}
       end
     end
+    
+    def history
+      the_username = params[:thisIsTheUsername]
+      user = User.find_by(username: the_username)
+      if user
+        render json: { count: user.orders.length }
+      else
+        render json: { count: -2 }
+      end
+    end
   
     private
   
